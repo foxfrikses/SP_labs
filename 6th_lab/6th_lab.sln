@@ -9,9 +9,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7th_lab", "..\7th_lab\7th_l
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{C7A5ADAE-5778-4D16-B0EC-F3A805BC5556}"
 	ProjectSection(SolutionItems) = preProject
+		..\shared\common.h = ..\shared\common.h
 		..\shared\IWindow.h = ..\shared\IWindow.h
 		..\shared\IWindowClass.h = ..\shared\IWindowClass.h
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "8th_lab", "..\8th_lab\8th_lab.vcxproj", "{E1ECF3C9-0C2D-4E1B-88C1-7EB0C24FDB49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +40,14 @@ Global
 		{A9B5F89A-9505-4DAD-9424-3C283186CF07}.Release|x64.Build.0 = Release|x64
 		{A9B5F89A-9505-4DAD-9424-3C283186CF07}.Release|x86.ActiveCfg = Release|Win32
 		{A9B5F89A-9505-4DAD-9424-3C283186CF07}.Release|x86.Build.0 = Release|Win32
+		{E1ECF3C9-0C2D-4E1B-88C1-7EB0C24FDB49}.Debug|x64.ActiveCfg = Debug|x64
+		{E1ECF3C9-0C2D-4E1B-88C1-7EB0C24FDB49}.Debug|x64.Build.0 = Debug|x64
+		{E1ECF3C9-0C2D-4E1B-88C1-7EB0C24FDB49}.Debug|x86.ActiveCfg = Debug|Win32
+		{E1ECF3C9-0C2D-4E1B-88C1-7EB0C24FDB49}.Debug|x86.Build.0 = Debug|Win32
+		{E1ECF3C9-0C2D-4E1B-88C1-7EB0C24FDB49}.Release|x64.ActiveCfg = Release|x64
+		{E1ECF3C9-0C2D-4E1B-88C1-7EB0C24FDB49}.Release|x64.Build.0 = Release|x64
+		{E1ECF3C9-0C2D-4E1B-88C1-7EB0C24FDB49}.Release|x86.ActiveCfg = Release|Win32
+		{E1ECF3C9-0C2D-4E1B-88C1-7EB0C24FDB49}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

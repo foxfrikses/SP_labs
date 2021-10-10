@@ -1,6 +1,6 @@
 #pragma once
 
-struct Position {int x, y, w, h;};
+#include "../shared/common.h"
 
 struct LBWCPositions {
   Position addBtnPosition;
