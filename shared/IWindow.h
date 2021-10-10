@@ -4,11 +4,27 @@
 #include <memory>
 
 class IWindow {
-  const std::unique_ptr<IWindowClass> __wc;
-  HWND __hwnd;
+public:
+  IWindow(std::unique_ptr<IWindowClass> wc, int nCmdShow) 
+    : __wc(std::move(wc))
+  {
+    __CreateWindow();
 
+    ShowWindow(__hwnd, nCmdShow);
+    UpdateWindow(__hwnd);
+  }
+
+  int Run() {
+    return __ProcessMessages();
+  }
+
+protected:
+  virtual int _GetWindowHeight() const {return 480;}
+  virtual int _GetWindowWidth() const {return 720;}
+  virtual LPCWSTR _GetWindowName() const {return L"MyWindowName"; }
+
+private:
   void __CreateWindow() {
-
     __hwnd = CreateWindowEx(
       0,
       __wc->GetWindowClassName(),
@@ -34,22 +50,6 @@ class IWindow {
     return 0;
   }
 
-public:
-  IWindow(std::unique_ptr<IWindowClass> wc, int nCmdShow) 
-    : __wc(std::move(wc))
-  {
-    __CreateWindow();
-
-    ShowWindow(__hwnd, nCmdShow);
-    UpdateWindow(__hwnd);
-  }
-
-  int Run() {
-    return __ProcessMessages();
-  }
-
-protected:
-  virtual int _GetWindowHeight() const {return 480;}
-  virtual int _GetWindowWidth() const {return 720;}
-  virtual LPCWSTR _GetWindowName() const {return L"MyWindowName"; }
+  const std::unique_ptr<IWindowClass> __wc;
+  HWND __hwnd;
 };

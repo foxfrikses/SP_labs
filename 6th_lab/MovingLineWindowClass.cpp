@@ -4,6 +4,7 @@
 #include <windows.h>
 
 #include <unordered_map>
+#include <string>
 
 using namespace std;
 
@@ -11,9 +12,7 @@ LRESULT APIENTRY WindowsProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lpar
 
 MovingLineWindowClass::MovingLineWindowClass(HINSTANCE hInst) 
   : IWindowClass(hInst)
-{
-  Initialize();
-}
+{}
 
 LPCWSTR MovingLineWindowClass::_GetWindowClassName() const 
 {

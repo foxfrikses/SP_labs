@@ -13,42 +13,46 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="6th_lab.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MovingLineWindowClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <Filter Include="Source Files\ListBoxWindowClass">
+      <UniqueIdentifier>{0aba6f9e-b3d5-4934-9ce6-f4b3e5f37911}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MovingLineWindowClass.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="LBWCViews.h">
+      <Filter>Source Files\ListBoxWindowClass</Filter>
+    </ClInclude>
+    <ClInclude Include="LBWCViewsPositioner.h">
+      <Filter>Source Files\ListBoxWindowClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ListBoxesWindowClass.h">
+      <Filter>Source Files\ListBoxWindowClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="6th_lab.rc">
+    <ClCompile Include="7th_lab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LBWCViewsPositioner.cpp">
+      <Filter>Source Files\ListBoxWindowClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ListBoxesWindowClass.cpp">
+      <Filter>Source Files\ListBoxWindowClass</Filter>
+    </ClCompile>
+    <ClCompile Include="LBWCViews.cpp">
+      <Filter>Source Files\ListBoxWindowClass</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="7th_lab.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Pictures\demented_smile.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="resources\demented_smile.ico">
       <Filter>Resource Files</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\diamond_axe.cur">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="resources\diamond_axe.cur">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

@@ -5,6 +5,14 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "6th_lab", "6th_lab.vcxproj", "{16C36189-32AD-4D48-995E-BF7BB4612E58}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7th_lab", "..\7th_lab\7th_lab.vcxproj", "{A9B5F89A-9505-4DAD-9424-3C283186CF07}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{C7A5ADAE-5778-4D16-B0EC-F3A805BC5556}"
+	ProjectSection(SolutionItems) = preProject
+		..\shared\IWindow.h = ..\shared\IWindow.h
+		..\shared\IWindowClass.h = ..\shared\IWindowClass.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +29,14 @@ Global
 		{16C36189-32AD-4D48-995E-BF7BB4612E58}.Release|x64.Build.0 = Release|x64
 		{16C36189-32AD-4D48-995E-BF7BB4612E58}.Release|x86.ActiveCfg = Release|Win32
 		{16C36189-32AD-4D48-995E-BF7BB4612E58}.Release|x86.Build.0 = Release|Win32
+		{A9B5F89A-9505-4DAD-9424-3C283186CF07}.Debug|x64.ActiveCfg = Debug|x64
+		{A9B5F89A-9505-4DAD-9424-3C283186CF07}.Debug|x64.Build.0 = Debug|x64
+		{A9B5F89A-9505-4DAD-9424-3C283186CF07}.Debug|x86.ActiveCfg = Debug|Win32
+		{A9B5F89A-9505-4DAD-9424-3C283186CF07}.Debug|x86.Build.0 = Debug|Win32
+		{A9B5F89A-9505-4DAD-9424-3C283186CF07}.Release|x64.ActiveCfg = Release|x64
+		{A9B5F89A-9505-4DAD-9424-3C283186CF07}.Release|x64.Build.0 = Release|x64
+		{A9B5F89A-9505-4DAD-9424-3C283186CF07}.Release|x86.ActiveCfg = Release|Win32
+		{A9B5F89A-9505-4DAD-9424-3C283186CF07}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

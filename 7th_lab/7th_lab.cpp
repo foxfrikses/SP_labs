@@ -5,11 +5,11 @@
 #include <windows.h>
 #include <string>
 
-#include "MovingLineWindowClass.h"
+#include "ListBoxesWindowClass.h"
 #include "../shared/IWindow.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-  auto wc = std::make_unique<MovingLineWindowClass>(hInstance);
-  auto w = IWindow(std::move(wc), nCmdShow);
+  auto w = IWindow(std::make_unique<ListBoxesWindowClass>(hInstance), 
+                   nCmdShow);
   return w.Run();
 }
