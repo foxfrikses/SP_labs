@@ -79,11 +79,8 @@ void SWCController::Print()
              0, 0, __btmpWidth, __btmpHeight, 
              SRCCOPY);
 
-  StretchBlt(hdc, 
-             rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, 
-             hBackDC, 
-             rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, 
-             SRCCOPY);
+  BitBlt(hdc, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, 
+         hBackDC, rc.left, rc.top, SRCCOPY);
   DeleteDC(hSpiderDC);
 
   DeleteObject(hBackBmp);
