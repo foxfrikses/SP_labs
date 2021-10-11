@@ -7,13 +7,6 @@ enum {
   ID_TIMER
 };
 
-int sign(int n) {
-  if (n == 0)
-    return 0;
-
-  return (n < 0 ? -1 : 1);
-}
-
 SWCController::SWCController(HWND hwnd, HINSTANCE hinst) 
   : __hwnd(hwnd)
   , __hInst(hinst)
