@@ -80,6 +80,7 @@ LRESULT APIENTRY WindowsProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lpar
 
         l.DrawItem(lparam);
       }
+      break;
 
     default:
       return DefWindowProc(hwnd, message, wparam, lparam);
