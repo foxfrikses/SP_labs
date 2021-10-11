@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "6th_lab", "6th_lab.vcxproj", "{16C36189-32AD-4D48-995E-BF7BB4612E58}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "06th_lab", "6th_lab.vcxproj", "{16C36189-32AD-4D48-995E-BF7BB4612E58}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7th_lab", "..\7th_lab\7th_lab.vcxproj", "{A9B5F89A-9505-4DAD-9424-3C283186CF07}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07th_lab", "..\7th_lab\7th_lab.vcxproj", "{A9B5F89A-9505-4DAD-9424-3C283186CF07}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{C7A5ADAE-5778-4D16-B0EC-F3A805BC5556}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,9 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{C7A5AD
 		..\shared\IWindowClass.h = ..\shared\IWindowClass.h
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "8th_lab", "..\8th_lab\8th_lab.vcxproj", "{E1ECF3C9-0C2D-4E1B-88C1-7EB0C24FDB49}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "08th_lab", "..\8th_lab\8th_lab.vcxproj", "{E1ECF3C9-0C2D-4E1B-88C1-7EB0C24FDB49}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "9th_lab", "..\9th_lab\9th_lab.vcxproj", "{14FCA764-6BC8-4E5E-8503-F6CD0B01CBF0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "09th_lab", "..\9th_lab\9th_lab.vcxproj", "{14FCA764-6BC8-4E5E-8503-F6CD0B01CBF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

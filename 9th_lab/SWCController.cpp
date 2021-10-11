@@ -1,6 +1,7 @@
 #include "SWCController.h"
 
 #include "resource.h"
+#include "../shared/common.h"
 
 enum {
   ID_TIMER
@@ -65,7 +66,7 @@ void SWCController::Print()
   HBITMAP hBackBmp = CreateCompatibleBitmap(hdc, rc.right - rc.left, rc.bottom - rc.top);
   SelectObject(hBackDC, hBackBmp);
 
-  FillRect(hBackDC, &rc, (HBRUSH) (COLOR_WINDOW+1));
+  FillRect(hBackDC, &rc, GetSysColorBrush(COLOR_WINDOW));
 
   HDC hSpiderDC = CreateCompatibleDC(hBackDC);
   SelectObject(hSpiderDC, __btmps[__curBtmp]);

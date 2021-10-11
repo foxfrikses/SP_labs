@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <string>
 
+#include "../shared/common.h"
+
 using namespace std;
 
 LRESULT APIENTRY WindowsProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
@@ -77,7 +79,7 @@ public:
   void Print(HDC hdc) {
     RECT rc;
     GetClientRect(hwnd, &rc);
-    FillRect(hdc, &rc, (HBRUSH) (COLOR_WINDOW+1));
+    FillRect(hdc, &rc, GetSysColorBrush(COLOR_WINDOW));
     if (isVisible) {
       auto left = rc.left;
       auto right = rc.right;

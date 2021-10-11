@@ -1,5 +1,6 @@
 #include "SimplePicPrinter.h"
 
+#include "../shared/common.h"
 #include <array>
 
 enum {
@@ -68,7 +69,7 @@ void SimplePicPrinter::Print()
   auto hdc = GetDC(__hwnd);
   RECT rc;
   GetClientRect(__hwnd, &rc);
-  FillRect(hdc, &rc, (HBRUSH) (COLOR_WINDOW+1));
+  FillRect(hdc, &rc, GetSysColorBrush(COLOR_WINDOW));
 	
 	auto pos = ComputePositions(rc.right - rc.left, 
 															rc.bottom - rc.top);
@@ -219,18 +220,51 @@ void PrintLine(const Line& l, HDC hdc) {
 	LineTo(hdc, l.x2, l.y2);
 }
 
+struct PrintPictureColors {
+	SolidPen border;
+	SolidPen crownBorder;
+	SolidPen trunkBorder;
+	SolidPen sunray;
+	SolidPen sunBorder;
+	SolidPen groundBorder;
+	SolidPen starBorder;
+
+	SolidBrush backgroundFill;
+	SolidBrush crownFill;
+	SolidBrush trunkFill;
+	SolidBrush sunFill;
+	SolidBrush groundFill;
+	SolidBrush starFill;
+
+	PrintPictureColors() 
+		: border(1, RGB(0, 0, 0))
+		, crownBorder(1, RGB(10, 120, 10))
+	  , trunkBorder(1, RGB(100, 50, 3))
+	  , sunray(4, RGB(230, 220, 20))
+	  , sunBorder(1, RGB(230, 220, 20))
+	  , groundBorder(1, RGB(20, 180, 10))
+	  , starBorder(1, RGB(120, 190, 200))
+	  , backgroundFill(RGB(177, 255, 250))
+	  , crownFill(RGB(60, 220, 60))
+	  , trunkFill(RGB(134, 70, 13))
+	  , sunFill(RGB(230, 255, 30))
+	  , groundFill(RGB(30, 255, 10))
+	  , starFill(RGB(120, 190, 200))
+	{}
+};
+
 void PrintPicture(const Position &pos, HDC hdc) 
 {
-	auto pen = CreatePen(BS_SOLID, 1, RGB(0, 0, 0));
-	auto brush = CreateSolidBrush(RGB(177, 255, 250));
-	SelectObject(hdc, pen);
-	SelectObject(hdc, brush);
+	PrintPictureColors colors;
+
+	auto initialPen = SelectObject(hdc, colors.border);
+	auto initialBrush = SelectObject(hdc, colors.backgroundFill);
 	Rectangle(hdc, pos.x, pos.y, pos.x + pos.w, pos.y + pos.h);
 
 	Position p{pos.x + 1, pos.y + 1, pos.w - 1, pos.h - 1};
 
-	SelectObject(hdc, CreatePen(BS_SOLID, 1, RGB(100, 50, 3)));
-	SelectObject(hdc, CreateSolidBrush(RGB(134, 70, 13)));
+	SelectObject(hdc, colors.trunkBorder);
+	SelectObject(hdc, colors.trunkFill);
 
 	Position littleTrunk;
 	littleTrunk.x = p.x + p.w * 2 / 10;
@@ -246,8 +280,8 @@ void PrintPicture(const Position &pos, HDC hdc)
 	bigTrunk.w =	p.w / 10;
 	PrintRect(bigTrunk, hdc);
 
-	SelectObject(hdc, CreatePen(BS_SOLID, 1, RGB(10, 120, 10)));
-	SelectObject(hdc, CreateSolidBrush(RGB(60, 220, 60)));
+	SelectObject(hdc, colors.crownBorder);
+	SelectObject(hdc, colors.crownFill);
 
 	Position littleTreeCrown;
 	littleTreeCrown.x = p.x + p.w * 3 / 20;
@@ -263,7 +297,7 @@ void PrintPicture(const Position &pos, HDC hdc)
 	bigTreeCrown.w = p.w * 2 / 10;
 	PrintEllipse(bigTreeCrown, hdc);
 
-	SelectObject(hdc, CreatePen(BS_SOLID, 4, RGB(230, 220, 20)));
+	SelectObject(hdc, colors.sunray);
 
 	Line sunRay;
 	sunRay.x1 = p.x + p.w;
@@ -285,8 +319,8 @@ void PrintPicture(const Position &pos, HDC hdc)
 	sunRay.y2 = p.y + p.h * 3 / 10;
 	PrintLine(sunRay, hdc);
 	
-	SelectObject(hdc, CreatePen(BS_SOLID, 1, RGB(230, 220, 20)));
-	SelectObject(hdc, CreateSolidBrush(RGB(230, 255, 30)));
+	SelectObject(hdc, colors.sunBorder);
+	SelectObject(hdc, colors.sunFill);
 
 	PieCoords sun;
 	sun.x1 = p.x + p.w - p.w * 2 / 10;
@@ -299,8 +333,8 @@ void PrintPicture(const Position &pos, HDC hdc)
 	sun.y4 = p.y + p.h * 2 / 10;
 	PrintPie(sun, hdc);
 
-	SelectObject(hdc, CreatePen(BS_SOLID, 1, RGB(20, 180, 10)));
-	SelectObject(hdc, CreateSolidBrush(RGB(30, 255, 10)));
+	SelectObject(hdc, colors.groundBorder);
+	SelectObject(hdc, colors.groundFill);
 
 	PieCoords ground;
 	ground.x1 = p.x;
@@ -313,8 +347,8 @@ void PrintPicture(const Position &pos, HDC hdc)
 	ground.y4 = p.y + p.h;
 	PrintPie(ground, hdc);
 
-	SelectObject(hdc, CreatePen(BS_SOLID, 1, RGB(120, 190, 200)));
-	SelectObject(hdc, CreateSolidBrush(RGB(120, 190, 200)));
+	SelectObject(hdc, colors.starBorder);
+	SelectObject(hdc, colors.starFill);
 
 	Position star;
 	star.x = p.x + p.w / 10;
@@ -326,28 +360,35 @@ void PrintPicture(const Position &pos, HDC hdc)
 	star.x += p.w * 3 / 10;
 	star.y += p.h * 2 / 10;
 	PrintStar(star, hdc);
+
+	SelectObject(hdc, initialPen);
+	SelectObject(hdc, initialBrush);
 }
 
 void PrintPlus(HDC hdc, RECT rect, bool selected) 
 {
-	constexpr auto red = RGB(240, 20, 60);
+	constexpr auto red =  RGB(240, 20, 60);
 	constexpr auto white = RGB(255, 255, 255);
 
+	SolidPen redPen(1, red);
+	SolidBrush whiteBrush(white);
+  SolidBrush redBrush(red);
+
+	auto initialPen = SelectObject(hdc, redPen);
+	auto initialBrush = SelectObject(hdc, whiteBrush);
+
+	Rectangle(hdc, rect.left, rect.top, rect.right, rect.bottom);
+
 	if (!selected) {
-	  SelectObject(hdc, CreatePen(BS_SOLID, 1, red));
-	  SelectObject(hdc, CreateSolidBrush(white));
-	  Rectangle(hdc, rect.left, rect.top, rect.right, rect.bottom);
-	  SelectObject(hdc, CreateSolidBrush(red));
+	  SelectObject(hdc, redBrush);
 	  Rectangle(hdc, rect.left, 
 							(rect.bottom * 1 + rect.top * 2) / 3, 
 							rect.right, 
 							(rect.bottom * 2 + rect.top * 1) / 3);
 	}
-	else {
-	  SelectObject(hdc, CreatePen(BS_SOLID, 1, red));
-	  SelectObject(hdc, CreateSolidBrush(white));
-	  Rectangle(hdc, rect.left, rect.top, rect.right, rect.bottom);
-	}
+
+	SelectObject(hdc, initialPen);
+	SelectObject(hdc, initialBrush);
 }
 
 void PrintMinus(HDC hdc, RECT rect, bool selected) 
@@ -357,19 +398,34 @@ void PrintMinus(HDC hdc, RECT rect, bool selected)
 	constexpr auto black = RGB(0, 0, 0);
 
 	if (!selected) {
-	  SelectObject(hdc, CreatePen(BS_SOLID, 1, red));
-	  SelectObject(hdc, CreateSolidBrush(red));
+	  SolidPen redPen(1, red);
+	  SolidPen greenPen(1, green);
+	  SolidBrush redBrush(red);
+	  SolidBrush greenBrush(green);
+
+	  auto initialPen = SelectObject(hdc, redPen);
+	  auto initialBrush = SelectObject(hdc, redBrush);
 	  Rectangle(hdc, rect.left, rect.top, rect.right, 
 							(rect.bottom * 2 + rect.top) / 3);
-	  SelectObject(hdc, CreatePen(BS_SOLID, 1, green));
-	  SelectObject(hdc, CreateSolidBrush(green));
+
+	  SelectObject(hdc, greenPen);
+	  SelectObject(hdc, greenBrush);
 	  Rectangle(hdc, rect.left, 
 							(rect.bottom * 2 + rect.top) / 3, 
 							rect.right, rect.bottom);
+
+	  SelectObject(hdc, initialPen);
+	  SelectObject(hdc, initialBrush);
 	}
 	else {
-	  SelectObject(hdc, CreatePen(BS_SOLID, 1, black));
-	  SelectObject(hdc, CreateSolidBrush(black));
+	  SolidPen blackPen(1, black);
+	  SolidBrush blackBrush(black);
+
+	  auto initialPen = SelectObject(hdc, blackPen);
+	  auto initialBrush = SelectObject(hdc, blackBrush);
 	  Rectangle(hdc, rect.left, rect.top, rect.right, rect.bottom);
+
+	  SelectObject(hdc, initialPen);
+	  SelectObject(hdc, initialBrush);
 	}
 }

@@ -69,7 +69,7 @@ LRESULT APIENTRY WindowsProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lpar
         auto hdc = BeginPaint(hwnd, &ps);
         RECT rc;
         GetClientRect(hwnd, &rc);
-        FillRect(hdc, &rc, (HBRUSH) (COLOR_WINDOW+1));
+        FillRect(hdc, &rc, GetSysColorBrush(COLOR_WINDOW));
         EndPaint(hwnd, &ps);
       }
       break;
