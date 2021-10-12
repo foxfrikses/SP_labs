@@ -62,7 +62,7 @@ public:
   MovingLine(HWND hwnd) 
     : hwnd(hwnd)
   {}
-  
+
   void Move() {
     if (rightPosition == rightBorder || 
         leftPosition == leftBorder) {

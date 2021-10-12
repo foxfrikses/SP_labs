@@ -11,7 +11,7 @@ SWCController::SWCController(HWND hwnd, HINSTANCE hinst)
   : __hwnd(hwnd)
   , __hInst(hinst)
 {
-	RECT rc;
+  RECT rc;
   GetClientRect(__hwnd, &rc);
   __aimPoint = __curPoint = FloatPoint{
     ((double)rc.left + rc.right) / 2, 
@@ -51,7 +51,7 @@ void SWCController::Print()
   PAINTSTRUCT ps;
   BeginPaint(__hwnd, &ps);
 
-	RECT rc;
+  RECT rc;
   GetClientRect(__hwnd, &rc);
   auto hdc = GetDC(__hwnd);
 
@@ -84,7 +84,7 @@ void SWCController::Print()
 
 void SWCController::SetAimPoint(int x, int y) 
 {
-	RECT rc;
+  RECT rc;
   GetClientRect(__hwnd, &rc);
 
   __aimPoint.x = min(max(x, 0), rc.right);
