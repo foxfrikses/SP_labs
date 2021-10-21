@@ -1,6 +1,5 @@
 #include "SimplePicPrinter.h"
 
-#include "../shared/common.h"
 #include <array>
 
 enum {

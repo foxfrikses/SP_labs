@@ -9,62 +9,27 @@
 class IWindowClass
 {
 public:
-  IWindowClass(HINSTANCE hInst) 
-    : __hInst(hInst)
-  {}
+  explicit IWindowClass(HINSTANCE hInst);
 
-  LPCWSTR GetWindowClassName() const {
-    _Initialize();
-    return _GetWindowClassName();
-  }
-
-  HINSTANCE GetWindowClassHinstanse() const {
-    return __hInst;
-  }
+  LPCWSTR GetWindowClassName() const;
+  HINSTANCE GetWindowClassHinstanse() const;
 
 protected:
   virtual LPCWSTR _GetWindowClassName() const = 0;
-  virtual HCURSOR _GetCursor() const {return 0;}
-  virtual HICON _GetIcon() const {return 0;}
   virtual WNDPROC _GetWindowProcedure() const = 0;
-  virtual UINT _GetWindowStyle() const {return CS_HREDRAW | CS_VREDRAW;};
-  virtual LPCWSTR _GetWindowMenuName() const {return 0;};
+  virtual HCURSOR _GetCursor() const;
+  virtual HICON _GetIcon() const;
+  virtual UINT _GetWindowStyle() const;
+  virtual LPCWSTR _GetWindowMenuName() const;
 
 protected:
-  void _Initialize() const {
-    if (__initialized) {
-      return;
-    }
-
-    if (!__IsWindowClassRegistered()) {
-      __RegisterWindowClass();
-    }
-
-    __initialized = true;
-  }
-  mutable bool __initialized = false;
+  void _Initialize() const;
 
 private:
-  bool __IsWindowClassRegistered() const {
-    WNDCLASSEXW str;
-    return GetClassInfoExW(__hInst, _GetWindowClassName(), &str) != FALSE;
-  }
-  void __RegisterWindowClass() const {
-    auto wndCls = __BuildWindowClass();
-    RegisterClass(&wndCls);
-  }
-
-  WNDCLASS __BuildWindowClass() const {
-    WNDCLASS wc = {0};
-    wc.hInstance = __hInst;
-    wc.lpszClassName = _GetWindowClassName();
-    wc.lpfnWndProc = _GetWindowProcedure();
-    wc.lpszMenuName = _GetWindowMenuName();
-    wc.style = _GetWindowStyle();
-    wc.hCursor = _GetCursor();
-    wc.hIcon = _GetIcon();
-    return wc;
-  }
+  bool __IsWindowClassRegistered() const;
+  void __RegisterWindowClass() const;
+  WNDCLASS __BuildWindowClass() const;
 
   HINSTANCE __hInst;
+  mutable bool __initialized = false;
 };

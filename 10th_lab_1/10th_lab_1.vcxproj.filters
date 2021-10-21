@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\DCModifiers">
+      <UniqueIdentifier>{8acf975b-2ffc-4255-86c5-6ab44178f813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DCModifiers\Ellipse">
+      <UniqueIdentifier>{27a1dbee-1e2d-467a-93d2-e5c612d5f48e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DCModifiers\Rhombus">
+      <UniqueIdentifier>{39bd87bf-789b-4eeb-bc21-167d045cf7a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DCModifiers\Rectangle">
+      <UniqueIdentifier>{da56463c-4c6a-4338-9d1f-02abe5f9e7c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DCModifiers\Star">
+      <UniqueIdentifier>{84efd976-944b-4277-bb62-aac1f8e57646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PrintBoard">
+      <UniqueIdentifier>{32a25296-8aee-44f9-b08f-a83643b0f609}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ModifiableBoard">
+      <UniqueIdentifier>{7043b761-8b50-4bc6-a1b3-6f036c8bd491}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="10th_lab_1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawerWindowClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawerLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DCEllipsePrinter.cpp">
+      <Filter>Source Files\DCModifiers\Ellipse</Filter>
+    </ClCompile>
+    <ClCompile Include="DCStarPrinter.cpp">
+      <Filter>Source Files\DCModifiers\Star</Filter>
+    </ClCompile>
+    <ClCompile Include="DCRectanglePrinter.cpp">
+      <Filter>Source Files\DCModifiers\Rectangle</Filter>
+    </ClCompile>
+    <ClCompile Include="DCRhombusPrinter.cpp">
+      <Filter>Source Files\DCModifiers\Rhombus</Filter>
+    </ClCompile>
+    <ClCompile Include="PrintBoard.cpp">
+      <Filter>Source Files\PrintBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="ExpandablePrintBoard.cpp">
+      <Filter>Source Files\PrintBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="ExpandableWhitePrintBoard.cpp">
+      <Filter>Source Files\PrintBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="ModifiableBoard.cpp">
+      <Filter>Source Files\ModifiableBoard</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DrawerWindowClass.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawerLogic.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DCEllipsePrinter.h">
+      <Filter>Source Files\DCModifiers\Ellipse</Filter>
+    </ClInclude>
+    <ClInclude Include="DCStarPrinter.h">
+      <Filter>Source Files\DCModifiers\Star</Filter>
+    </ClInclude>
+    <ClInclude Include="DCRectanglePrinter.h">
+      <Filter>Source Files\DCModifiers\Rectangle</Filter>
+    </ClInclude>
+    <ClInclude Include="DCRhombusPrinter.h">
+      <Filter>Source Files\DCModifiers\Rhombus</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintBoard.h">
+      <Filter>Source Files\PrintBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="ExpandablePrintBoard.h">
+      <Filter>Source Files\PrintBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="ExpandableWhitePrintBoard.h">
+      <Filter>Source Files\PrintBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="ModifiableBoard.h">
+      <Filter>Source Files\ModifiableBoard</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="10th_lab_1.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\demented_smile.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

@@ -1,7 +1,6 @@
 #include "SWCController.h"
 
 #include "resource.h"
-#include "../shared/common.h"
 
 enum {
   ID_TIMER

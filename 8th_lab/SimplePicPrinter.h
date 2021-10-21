@@ -2,7 +2,7 @@
 
 #include <windows.h>
  
-#include "../shared/common.h"
+#include "PaintTools.h"
 
 class SimplePicPrinter {
   enum {

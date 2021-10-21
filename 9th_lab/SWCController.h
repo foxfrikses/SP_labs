@@ -4,7 +4,7 @@
 
 #include <array>
  
-#include "../shared/common.h"
+#include "PaintTools.h"
 
 class SWCController final {
   HWND __hwnd;

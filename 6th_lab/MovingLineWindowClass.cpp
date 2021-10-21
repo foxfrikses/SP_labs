@@ -6,8 +6,6 @@
 #include <unordered_map>
 #include <string>
 
-#include "../shared/common.h"
-
 using namespace std;
 
 LRESULT APIENTRY WindowsProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);

@@ -15,13 +15,10 @@ LRESULT APIENTRY WindowsProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lpar
 SimplePicPrinterWindowClass::SimplePicPrinterWindowClass(HINSTANCE hInst) 
   : IWindowClass(hInst)
 {}
-HCURSOR SimplePicPrinterWindowClass::_GetCursor() const {return 0;}
 HICON SimplePicPrinterWindowClass::_GetIcon() const {
   return LoadIcon(GetWindowClassHinstanse(), 
                   MAKEINTRESOURCE(IDI_STUPID_ICON));
 }
-UINT SimplePicPrinterWindowClass::_GetWindowStyle() const {return 0;}
-LPCWSTR SimplePicPrinterWindowClass::_GetWindowMenuName() const {return 0;}
 WNDPROC SimplePicPrinterWindowClass::_GetWindowProcedure() const 
 {
   return reinterpret_cast<WNDPROC>(WindowsProc);

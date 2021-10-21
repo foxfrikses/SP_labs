@@ -16,13 +16,10 @@ LRESULT APIENTRY WindowsProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lpar
 SpiderWindowClass::SpiderWindowClass(HINSTANCE hInst) 
   : IWindowClass(hInst)
 {}
-HCURSOR SpiderWindowClass::_GetCursor() const {return 0;}
 HICON SpiderWindowClass::_GetIcon() const {
   return LoadIcon(GetWindowClassHinstanse(), 
                   MAKEINTRESOURCE(IDI_STUPID_ICON));
 }
-UINT SpiderWindowClass::_GetWindowStyle() const {return 0;}
-LPCWSTR SpiderWindowClass::_GetWindowMenuName() const {return 0;}
 WNDPROC SpiderWindowClass::_GetWindowProcedure() const 
 {
   return reinterpret_cast<WNDPROC>(WindowsProc);

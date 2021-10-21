@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../shared/IWindow.h"
-#include "../shared/IWindowClass.h"
+#include "IWindowClass.h"
 
 class MovingLineWindowClass final 
   : public IWindowClass 

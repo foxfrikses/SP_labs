@@ -15,13 +15,10 @@ LRESULT APIENTRY WindowsProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lpar
 ListBoxesWindowClass::ListBoxesWindowClass(HINSTANCE hInst) 
   : IWindowClass(hInst)
 {}
-HCURSOR ListBoxesWindowClass::_GetCursor() const {return 0;}
 HICON ListBoxesWindowClass::_GetIcon() const {
   return LoadIcon(GetWindowClassHinstanse(), 
                   MAKEINTRESOURCE(IDI_STUPID_ICON));
 }
-UINT ListBoxesWindowClass::_GetWindowStyle() const {return 0;}
-LPCWSTR ListBoxesWindowClass::_GetWindowMenuName() const {return 0;}
 WNDPROC ListBoxesWindowClass::_GetWindowProcedure() const 
 {
   return reinterpret_cast<WNDPROC>(WindowsProc);

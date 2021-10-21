@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../shared/common.h"
+#include "PaintTools.h"
 
 struct LBWCPositions {
   Position addBtnPosition;
