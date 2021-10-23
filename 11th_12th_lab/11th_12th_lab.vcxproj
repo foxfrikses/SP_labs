@@ -24,6 +24,7 @@
     <ProjectGuid>{0f033c42-e95c-4b79-86f4-b3515dd69baf}</ProjectGuid>
     <RootNamespace>My11thlab</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>11th_12th_lab</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -141,7 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="11th_lab.cpp" />
+    <ClCompile Include="11th_12th_lab.cpp" />
     <ClCompile Include="FiguresPrinter.cpp" />
     <ClCompile Include="FiguresPrinterThreadFunction.cpp" />
     <ClCompile Include="FiguresPrintingLogic.cpp" />

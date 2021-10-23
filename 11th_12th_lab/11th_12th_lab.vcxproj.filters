@@ -18,7 +18,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="11th_lab.cpp">
+    <ClCompile Include="11th_12th_lab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FiguresPrintingWindowClass.cpp">

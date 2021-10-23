@@ -19,7 +19,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shared", "Shared\Shared.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10th_lab_shared", "10th_lab_shared\10th_lab_shared.vcxproj", "{58B1F380-2890-4842-B23C-1E371BE8AF06}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11th_lab", "11th_lab\11th_lab.vcxproj", "{0F033C42-E95C-4B79-86F4-B3515DD69BAF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11th_12th_lab", "11th_12th_lab\11th_12th_lab.vcxproj", "{0F033C42-E95C-4B79-86F4-B3515DD69BAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
