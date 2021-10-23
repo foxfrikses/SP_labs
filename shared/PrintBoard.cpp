@@ -13,26 +13,17 @@ PrintBoard::PrintBoard(HDC targetDC, UINT width, UINT height)
 }
 
 PrintBoard::PrintBoard(PrintBoard&& nb)
-  : __hdc(nb.__hdc)
-  , __hBmp(nb.__hBmp)
-  , __width(nb.__width)
-  , __height(nb.__height)
-  , __targetDC(nb.__targetDC)
+  : __hdc(NULL)
+  , __hBmp(NULL)
+  , __width(0)
+  , __height(0)
+  , __targetDC(NULL)
 {
-  nb.__hdc = NULL;
-  nb.__hBmp = NULL;
-  nb.__width = 0;
-  nb.__height = 0;
+  *this = std::move(nb);
 }
 
 PrintBoard& PrintBoard::operator =(PrintBoard&& nb)
 {
-  __targetDC = NULL;
-  __hdc = NULL;
-  __hBmp = NULL;
-  __width = 0;
-  __height = 0;
-
   std::swap(__targetDC, nb.__targetDC);
   std::swap(__hdc, nb.__hdc);
   std::swap(__hBmp, nb.__hBmp);

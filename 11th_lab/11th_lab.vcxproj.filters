@@ -14,45 +14,38 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Source Files\ModifiableBoard">
-      <UniqueIdentifier>{7043b761-8b50-4bc6-a1b3-6f036c8bd491}</UniqueIdentifier>
+      <UniqueIdentifier>{e8491b1a-a359-4c9d-8176-697b197369f1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="10th_lab_1.cpp">
+    <ClCompile Include="11th_lab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DrawerWindowClass.cpp">
+    <ClCompile Include="FiguresPrintingWindowClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DrawerLogic.cpp">
+    <ClCompile Include="FiguresPrintingLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ModifiableBoard.cpp">
       <Filter>Source Files\ModifiableBoard</Filter>
     </ClCompile>
+    <ClCompile Include="FiguresPrinter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DrawerWindowClass.h">
+    <ClInclude Include="FiguresPrintingWindowClass.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawerLogic.h">
+    <ClInclude Include="FiguresPrintingLogic.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="ModifiableBoard.h">
       <Filter>Source Files\ModifiableBoard</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="10th_lab_1.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="resources\demented_smile.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ClInclude Include="FiguresPrinter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

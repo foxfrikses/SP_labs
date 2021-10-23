@@ -11,6 +11,7 @@ public:
 
   void Resize(UINT width, UINT height);
   void ShrinkToFit() {__printBoard.ShrinkToFit();}
+  void Clear();
 
   operator HDC() const {return __printBoard;}
 

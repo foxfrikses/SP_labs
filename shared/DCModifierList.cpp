@@ -1,12 +1,12 @@
-#include "IDCModifierList.h"
+#include "DCModifierList.h"
 
-void DCModifierList::AddModifier(DCModifier modifier, DCModifier beforeModifier) 
+bool DCModifierList::AddModifier(DCModifier modifier, DCModifier beforeModifier) 
 {
   if (modifier == nullptr) {
-    return;
+    return false;
   }
   if (__modifierToIterator.find(modifier) != __modifierToIterator.end()) {
-    return;
+    return false;
   }
 
   auto beforeIt = __modifiers.end();
@@ -18,22 +18,25 @@ void DCModifierList::AddModifier(DCModifier modifier, DCModifier beforeModifier)
 
   auto insertedIt = __modifiers.insert(beforeIt, modifier);
   __modifierToIterator.emplace(std::move(modifier), std::move(insertedIt));
+
+  return true;
 }
 
-void DCModifierList::DeleteModifier(DCModifier modifier) 
+bool DCModifierList::DeleteModifier(DCModifier modifier) 
 {
   if (!modifier) {
-    return;
+    return false;
   }
 
   auto mtiIt = __modifierToIterator.find(modifier);
 
   if (mtiIt == __modifierToIterator.end()) {
-    return;
+    return false;
   }
 
   __modifiers.erase(mtiIt->second);
   __modifierToIterator.erase(mtiIt);
+  return true;
 }
 
 DCModifierList::ModifierListIter 

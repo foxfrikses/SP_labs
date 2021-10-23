@@ -15,8 +15,8 @@ class DCModifierList
   std::unordered_map<DCModifier, ModifierListIter> __modifierToIterator;
 
 public:
-  void AddModifier(DCModifier modifier, DCModifier beforeModifier = nullptr);
-  void DeleteModifier(DCModifier modifier);
+  bool AddModifier(DCModifier modifier, DCModifier beforeModifier = nullptr);
+  bool DeleteModifier(DCModifier modifier);
 
   ModifierListIter Find(DCModifier modifier);
 

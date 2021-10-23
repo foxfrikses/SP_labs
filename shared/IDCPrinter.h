@@ -20,3 +20,5 @@ public:
 
   void Modify(HDC hdc) override final;
 };
+
+using DCPrinter = std::shared_ptr<IDCPrinter>;

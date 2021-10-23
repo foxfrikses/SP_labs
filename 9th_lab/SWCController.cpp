@@ -3,7 +3,7 @@
 #include "resource.h"
 
 enum {
-  ID_TIMER
+  ID_REPRINT_TIMER
 };
 
 SWCController::SWCController(HWND hwnd, HINSTANCE hinst) 
@@ -25,7 +25,7 @@ SWCController::SWCController(HWND hwnd, HINSTANCE hinst)
 
 SWCController::~SWCController() 
 {
-  KillTimer(__hwnd, ID_TIMER);
+  KillTimer(__hwnd, ID_REPRINT_TIMER);
 }
 
 void SWCController::Timer(WPARAM wparam, LPARAM lparam) 
@@ -89,7 +89,7 @@ void SWCController::SetAimPoint(int x, int y)
   __aimPoint.x = min(max(x, 0), rc.right);
   __aimPoint.y = min(max(y, 0), rc.bottom);
 
-  SetTimer(__hwnd, ID_TIMER, __timerPeriod, nullptr);
+  SetTimer(__hwnd, ID_REPRINT_TIMER, __timerPeriod, nullptr);
 }
 
 void SWCController::Move() 
@@ -101,7 +101,7 @@ void SWCController::Move()
 
   if (dx == 0 && dy == 0)
   {
-    KillTimer(__hwnd, ID_TIMER);
+    KillTimer(__hwnd, ID_REPRINT_TIMER);
     return;
   }
 

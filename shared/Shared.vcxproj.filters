@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
@@ -19,6 +15,19 @@
     <Filter Include="Header Files\Paint">
       <UniqueIdentifier>{8be9e237-c4b5-466d-ac38-0b36f6b49e1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\DCTools">
+      <UniqueIdentifier>{440d7020-fcca-4a21-9a5e-5554fd3b34e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\DCTools\DCModifiers">
+      <UniqueIdentifier>{50502c22-6aea-4a0d-bff9-bcfd81109d83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Boards">
+      <UniqueIdentifier>{e7e7525e-9d91-4c43-8ff2-6a7296cfe8b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
     <Filter Include="Source Files\Window">
       <UniqueIdentifier>{9fde604a-4705-4212-a3b3-e86383a07b0f}</UniqueIdentifier>
     </Filter>
@@ -28,8 +37,11 @@
     <Filter Include="Source Files\DCTools">
       <UniqueIdentifier>{5649e062-d28f-4b12-8e3b-9286082aebf6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\DCTools">
-      <UniqueIdentifier>{440d7020-fcca-4a21-9a5e-5554fd3b34e3}</UniqueIdentifier>
+    <Filter Include="Source Files\DCTools\DCModifiers">
+      <UniqueIdentifier>{9b00c228-0494-4b32-984c-7f10775816a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Boards">
+      <UniqueIdentifier>{ea6174cf-e005-48f8-ab83-ab796e4f9199}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -45,11 +57,32 @@
     <ClInclude Include="IDCModifier.h">
       <Filter>Header Files\DCTools</Filter>
     </ClInclude>
-    <ClInclude Include="IDCModifierList.h">
+    <ClInclude Include="DCModifierList.h">
       <Filter>Header Files\DCTools</Filter>
     </ClInclude>
     <ClInclude Include="IDCPrinter.h">
       <Filter>Header Files\DCTools</Filter>
+    </ClInclude>
+    <ClInclude Include="DCEllipsePrinter.h">
+      <Filter>Header Files\DCTools\DCModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="DCRhombusPrinter.h">
+      <Filter>Header Files\DCTools\DCModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="DCRectanglePrinter.h">
+      <Filter>Header Files\DCTools\DCModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="DCStarPrinter.h">
+      <Filter>Header Files\DCTools\DCModifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="ExpandablePrintBoard.h">
+      <Filter>Header Files\Boards</Filter>
+    </ClInclude>
+    <ClInclude Include="ExpandableWhitePrintBoard.h">
+      <Filter>Header Files\Boards</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintBoard.h">
+      <Filter>Header Files\Boards</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,11 +98,32 @@
     <ClCompile Include="IDCModifier.cpp">
       <Filter>Source Files\DCTools</Filter>
     </ClCompile>
-    <ClCompile Include="IDCModifierList.cpp">
+    <ClCompile Include="DCModifierList.cpp">
       <Filter>Source Files\DCTools</Filter>
     </ClCompile>
     <ClCompile Include="IDCPrinter.cpp">
       <Filter>Source Files\DCTools</Filter>
+    </ClCompile>
+    <ClCompile Include="ExpandablePrintBoard.cpp">
+      <Filter>Source Files\Boards</Filter>
+    </ClCompile>
+    <ClCompile Include="ExpandableWhitePrintBoard.cpp">
+      <Filter>Source Files\Boards</Filter>
+    </ClCompile>
+    <ClCompile Include="PrintBoard.cpp">
+      <Filter>Source Files\Boards</Filter>
+    </ClCompile>
+    <ClCompile Include="DCEllipsePrinter.cpp">
+      <Filter>Source Files\DCTools\DCModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="DCRhombusPrinter.cpp">
+      <Filter>Source Files\DCTools\DCModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="DCStarPrinter.cpp">
+      <Filter>Source Files\DCTools\DCModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="DCRectanglePrinter.cpp">
+      <Filter>Source Files\DCTools\DCModifiers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

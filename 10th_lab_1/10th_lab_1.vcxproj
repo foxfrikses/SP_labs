@@ -142,28 +142,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="10th_lab_1.cpp" />
-    <ClCompile Include="DCEllipsePrinter.cpp" />
-    <ClCompile Include="DCRhombusPrinter.cpp" />
-    <ClCompile Include="DCStarPrinter.cpp" />
-    <ClCompile Include="DCRectanglePrinter.cpp" />
     <ClCompile Include="DrawerLogic.cpp" />
     <ClCompile Include="DrawerWindowClass.cpp" />
-    <ClCompile Include="ExpandablePrintBoard.cpp" />
-    <ClCompile Include="ExpandableWhitePrintBoard.cpp" />
     <ClCompile Include="ModifiableBoard.cpp" />
-    <ClCompile Include="PrintBoard.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DCEllipsePrinter.h" />
-    <ClInclude Include="DCRhombusPrinter.h" />
-    <ClInclude Include="DCStarPrinter.h" />
-    <ClInclude Include="DCRectanglePrinter.h" />
     <ClInclude Include="DrawerLogic.h" />
     <ClInclude Include="DrawerWindowClass.h" />
-    <ClInclude Include="ExpandablePrintBoard.h" />
-    <ClInclude Include="ExpandableWhitePrintBoard.h" />
     <ClInclude Include="ModifiableBoard.h" />
-    <ClInclude Include="PrintBoard.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
