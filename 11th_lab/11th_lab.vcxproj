@@ -143,12 +143,14 @@
   <ItemGroup>
     <ClCompile Include="11th_lab.cpp" />
     <ClCompile Include="FiguresPrinter.cpp" />
+    <ClCompile Include="FiguresPrinterThreadFunction.cpp" />
     <ClCompile Include="FiguresPrintingLogic.cpp" />
     <ClCompile Include="FiguresPrintingWindowClass.cpp" />
     <ClCompile Include="ModifiableBoard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FiguresPrinter.h" />
+    <ClInclude Include="FiguresPrinterThreadFunction.h" />
     <ClInclude Include="FiguresPrintingLogic.h" />
     <ClInclude Include="FiguresPrintingWindowClass.h" />
     <ClInclude Include="ModifiableBoard.h" />

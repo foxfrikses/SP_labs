@@ -4,6 +4,8 @@
 #include <memory>
 #include <array>
 
+#include "FiguresPrinterThreadFunction.h"
+
 class FiguresPrinter
 {
 public:
@@ -11,23 +13,22 @@ public:
   ~FiguresPrinter();
 
   void Run();
+  void Suspend();
   void Stop();
 
 private:
   inline static const int THREAD_COUNT = 8;
+
+  enum class State
+  {
+    stopped,
+    running,
+    suspended
+  } __state;
  
-  bool __isRunning = false;
   std::shared_ptr<ModifiableBoard> __board;
 
-  struct ThreadData
-  {
-    std::shared_ptr<ModifiableBoard> board;
-    std::atomic_flag stop;
-  };
-  ThreadData* __threadDataArray;
+  figures_printer::ThreadData* __threadDataArray;
   std::array<DWORD, THREAD_COUNT>  __threadIdArray;
   std::array<HANDLE, THREAD_COUNT> __threadArray;
- 
-  friend DWORD WINAPI ThreadFunction( LPVOID lpParam );
-;
 };

@@ -33,6 +33,9 @@
     <ClCompile Include="FiguresPrinter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FiguresPrinterThreadFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FiguresPrintingWindowClass.h">
@@ -45,6 +48,9 @@
       <Filter>Source Files\ModifiableBoard</Filter>
     </ClInclude>
     <ClInclude Include="FiguresPrinter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FiguresPrinterThreadFunction.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

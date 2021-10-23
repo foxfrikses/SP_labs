@@ -27,14 +27,18 @@ public:
   void Print();
 
 private:
+  void PrintPicture();
+
   HWND CreateButton(const Position& pos, LPCWSTR name, int id) const;
 
   void OnRunClicked();
+  void OnSuspendClicked();
   void OnStopClicked();
 
 private:
   HWND __hRunWnd = NULL; 
   HWND __hStopWnd = NULL; 
+  HWND __hSuspendWnd = NULL; 
 
   HWND __hwnd;
   HINSTANCE __hInst;

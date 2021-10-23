@@ -4,12 +4,14 @@ using namespace std;
 
 enum IDs {
   ID_RUN,
+  ID_SUSPEND,
   ID_STOP,
   ID_REPRINT_TIMER = 1000,
 };
 
 struct Positions {
   Position runBtnPosition;
+  Position suspendBtnPosition;
   Position stopBtnPosition;
   Position printPositon;
 };
@@ -44,24 +46,33 @@ FiguresPrintingLogic::FiguresPrintingLogic(
     L"Run", 
     ID_RUN
   );
+  __hSuspendWnd = CreateButton(
+    cp.suspendBtnPosition, 
+    L"Suspend", 
+    ID_SUSPEND
+  );
   __hStopWnd = CreateButton(
     cp.stopBtnPosition, 
     L"Stop", 
     ID_STOP
   );
   ShowWindow(__hRunWnd, SW_SHOWNORMAL);
+  ShowWindow(__hSuspendWnd, SW_SHOWNORMAL);
   ShowWindow(__hStopWnd, SW_SHOWNORMAL);
+  SetTimer(__hwnd, ID_REPRINT_TIMER, 60, nullptr);
 }
 
 FiguresPrintingLogic::FiguresPrintingLogic(
   FiguresPrintingLogic&& fpl
 )
   : __hRunWnd(NULL) 
+  , __hSuspendWnd(NULL)
   , __hStopWnd(NULL)
   , __hwnd(NULL)
   , __hInst(NULL)
 {
   std::swap(__hRunWnd, fpl.__hRunWnd);
+  std::swap(__hSuspendWnd, fpl.__hSuspendWnd);
   std::swap(__hStopWnd, fpl.__hStopWnd);
   std::swap(__hwnd, fpl.__hwnd);
   std::swap(__hInst, fpl.__hInst);
@@ -75,6 +86,7 @@ FiguresPrintingLogic::operator =(
 )
 {
   std::swap(__hRunWnd, fpl.__hRunWnd);
+  std::swap(__hSuspendWnd, fpl.__hSuspendWnd);
   std::swap(__hStopWnd, fpl.__hStopWnd);
   std::swap(__hwnd, fpl.__hwnd);
   std::swap(__hInst, fpl.__hInst);
@@ -97,6 +109,9 @@ void FiguresPrintingLogic::Command(
     case ID_RUN:
       OnRunClicked();
       break;
+    case ID_SUSPEND:
+      OnSuspendClicked();
+      break;
     case ID_STOP:
       OnStopClicked();
       break;
@@ -108,7 +123,7 @@ void FiguresPrintingLogic::Timer(WPARAM wparam)
 {
   switch (IDs(wparam)) {
     case ID_REPRINT_TIMER:
-      Print();
+      PrintPicture();
       break;
     default:
       break;
@@ -126,7 +141,35 @@ void FiguresPrintingLogic::Resize(
     __board->SetSize(p.printPositon.w, p.printPositon.h);
   }
   SetWindowPosition(__hRunWnd, p.runBtnPosition);
+  SetWindowPosition(__hSuspendWnd, p.suspendBtnPosition);
   SetWindowPosition(__hStopWnd, p.stopBtnPosition);
+}
+void FiguresPrintingLogic::PrintPicture()
+{
+  if (__board) {
+    PAINTSTRUCT ps;
+    BeginPaint(__hwnd, &ps);
+
+    RECT rc;
+    GetClientRect(__hwnd, &rc);
+    const auto width = rc.right - rc.left;
+    const auto height = rc.bottom - rc.top;
+    HDC hdc = GetDC(__hwnd); 
+
+    auto cp = ComputePositions(width, height);
+    auto dc = __board->GetDC();
+    BitBlt(hdc, 
+           cp.printPositon.x, 
+           cp.printPositon.y,
+           cp.printPositon.w,
+           cp.printPositon.h, 
+           dc, 
+           0, 
+           0, 
+           SRCCOPY);
+    
+    EndPaint(__hwnd, &ps);
+  }
 }
 void FiguresPrintingLogic::Print()
 {
@@ -168,9 +211,12 @@ void FiguresPrintingLogic::Print()
          SRCCOPY);
 
   EndPaint(__hwnd, &ps);
+
   InvalidateRect(__hRunWnd, nullptr, TRUE);
+  InvalidateRect(__hSuspendWnd, nullptr, TRUE);
   InvalidateRect(__hStopWnd,  nullptr, TRUE);
   UpdateWindow(__hRunWnd);
+  UpdateWindow(__hSuspendWnd);
   UpdateWindow(__hStopWnd);
 }
 
@@ -179,11 +225,14 @@ Positions ComputePositions(int clientWidth, int clientHeight)
   //  _ - m         __ - m         _ - m
   // ________________________________
   // | ____________   ____________  |  | - h
-  // | |           |  | RunBtn    | | |   
-  // | | Area      |  \___________/ | | - btnHeight
-  // | | For       |  ____________  |  | - H
-  // | | Printing  |  | StopBtn   | | |
-  // | \__________/   \___________/ | | - btnHeight
+  // | |           |  | RunBtn    | | | - btnHeight  
+  // | |           |  \___________/ | |   
+  // | | Area      |  ____________  |  | - H
+  // | | For       |  | SuspendBtn| | | - btnHeight
+  // | | Printing  |  \___________/ | |
+  // | |           |  ____________  |  | - H
+  // | |           |  | StopBtn   | | | - btnHeight
+  // | \__________/   \___________/ | |
   // |______________________________|  | - h
 
   const int minWidth = 300, minHeight = 300;
@@ -198,7 +247,7 @@ Positions ComputePositions(int clientWidth, int clientHeight)
   const int m = 10;
   const int h = 10;
   const int btnHeight = 50;
-  const int H = clientHeight - 2 * btnHeight - 2 * h;
+  const int H = (clientHeight - 3 * btnHeight - 2 * h) / 2;
   const int afpHeight = clientHeight - 2 * h;
   const int afpWidth = (clientWidth - 3 * m) * 2 / 3;
   const int btnWidth = clientWidth - 3 * m - afpWidth;
@@ -215,8 +264,13 @@ Positions ComputePositions(int clientWidth, int clientHeight)
   pos.runBtnPosition.w = btnWidth;
   pos.runBtnPosition.h = btnHeight;
 
+  pos.suspendBtnPosition.x = m * 2 + afpWidth;
+  pos.suspendBtnPosition.y = h + H + btnHeight;
+  pos.suspendBtnPosition.w = btnWidth;
+  pos.suspendBtnPosition.h = btnHeight;
+
   pos.stopBtnPosition.x = m * 2 + afpWidth;
-  pos.stopBtnPosition.y = h + H + btnHeight;
+  pos.stopBtnPosition.y = h + H * 2 + btnHeight * 2;
   pos.stopBtnPosition.w = btnWidth;
   pos.stopBtnPosition.h = btnHeight;
 
@@ -228,8 +282,12 @@ void FiguresPrintingLogic::OnRunClicked()
   if (__printer) {
     __printer->Run();
   }
-  if (__hwnd) {
-    SetTimer(__hwnd, ID_REPRINT_TIMER, 60, nullptr);
+}
+
+void FiguresPrintingLogic::OnSuspendClicked()
+{
+  if (__printer) {
+    __printer->Suspend();
   }
 }
 
