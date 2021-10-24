@@ -13,7 +13,7 @@ namespace figures_printer
 
   struct ThreadData
   {
-    std::shared_ptr<ModifiableBoard> board;
+    std::shared_ptr<IModifiableBoard> board;
     std::atomic_flag stop;
   };
 }

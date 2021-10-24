@@ -3,7 +3,7 @@
 using namespace figures_printer;
 
 FiguresPrinter::FiguresPrinter(
-  std::shared_ptr<ModifiableBoard> board
+  std::shared_ptr<IModifiableBoard> board
 )
   : __board(std::move(board))
 {}

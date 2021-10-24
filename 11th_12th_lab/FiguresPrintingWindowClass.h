@@ -10,4 +10,5 @@ public:
 
   LPCWSTR _GetWindowClassName() const override;
   WNDPROC _GetWindowProcedure() const override;
+  HICON _GetIcon() const override;
 };

@@ -1,6 +1,8 @@
 #include "FiguresPrintingWindowClass.h"
 #include "FiguresPrintingLogic.h"
 
+#include "resource.h"
+
 #include <unordered_map>
 
 using namespace std;
@@ -18,6 +20,11 @@ LPCWSTR FiguresPrintingWindowClass::_GetWindowClassName() const
 WNDPROC FiguresPrintingWindowClass::_GetWindowProcedure() const
 {
   return reinterpret_cast<WNDPROC>(WindowsProc);
+}
+HICON FiguresPrintingWindowClass::_GetIcon() const 
+{
+  return LoadIcon(GetWindowClassHinstanse(), 
+                  MAKEINTRESOURCE(IDI_STUPID_ICON));
 }
 
 unordered_map<int, FiguresPrintingLogic> handlerToLogic;

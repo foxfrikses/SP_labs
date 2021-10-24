@@ -7,7 +7,8 @@ ExpandableWhitePrintBoard::ExpandableWhitePrintBoard(
 ) : __printBoard(targetDC, width, height)
 {
   RECT rc{0, 0, width, height};
-  FillRect(__printBoard, &rc, SolidBrush(WHITE));
+  SolidBrush whiteBrush(WHITE);
+  FillRect(__printBoard, &rc, whiteBrush);
 }
 
 void ExpandableWhitePrintBoard::Resize(
@@ -38,5 +39,6 @@ void ExpandableWhitePrintBoard::Resize(
 void ExpandableWhitePrintBoard::Clear()
 {
   const RECT rc{0, 0, (LONG)Width(), (LONG)Height()};
-  FillRect(__printBoard, &rc, SolidBrush(WHITE));
+  SolidBrush whiteBrush(WHITE);
+  FillRect(__printBoard, &rc, whiteBrush);
 }

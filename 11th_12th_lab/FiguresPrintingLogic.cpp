@@ -1,15 +1,30 @@
 #include "FiguresPrintingLogic.h"
 
+#include "WinCriticalSectionMutex.h"
+#include "WinSemaphoreMutex.h"
+#include "WinMutexMutex.h"
+#include <mutex>
+
 using namespace std;
 
 enum IDs {
   ID_RUN,
   ID_SUSPEND,
   ID_STOP,
+
+  ID_STD_MUTEX,
+  ID_MUTEX_MUTEX,
+  ID_SEMAPHORE_MUTEX,
+  ID_CRITICAL_SECTION_MUTEX,
+
   ID_REPRINT_TIMER = 1000,
 };
 
 struct Positions {
+  Position stdMutexPosition;
+  Position mutMutexPosition;
+  Position crsMutexPosition;
+  Position semMutexPosition;
   Position runBtnPosition;
   Position suspendBtnPosition;
   Position stopBtnPosition;
@@ -21,11 +36,19 @@ Positions ComputePositions(
   int clientHeight
 ); 
 
+std::unique_ptr<IModifiableBoard> GetBoard(
+  MutexType type, 
+  HDC hdc,
+  int width,
+  int height
+);
+
 FiguresPrintingLogic::FiguresPrintingLogic(
   HWND hwnd, HINSTANCE hinst
 )
   : __hwnd(hwnd)
   , __hInst(hinst)
+  , __mutexType(MutexType::stdMutex)
 {
   RECT rc;
   GetClientRect(hwnd, &rc);
@@ -33,8 +56,9 @@ FiguresPrintingLogic::FiguresPrintingLogic(
     rc.right - rc.left, 
     rc.bottom - rc.top
   );
-  __board = std::make_shared<ModifiableBoard>(
-    GetDC(hwnd), 
+  __board = GetBoard(
+    __mutexType,
+    GetDC(__hwnd),
     cp.printPositon.w,
     cp.printPositon.h
   );
@@ -56,10 +80,44 @@ FiguresPrintingLogic::FiguresPrintingLogic(
     L"Stop", 
     ID_STOP
   );
+  __hStdWnd = CreateRadioButton(
+    cp.stdMutexPosition, 
+    L"std::mutex", 
+    ID_STD_MUTEX,
+    true
+  );
+  __hMutWnd = CreateRadioButton(
+    cp.mutMutexPosition, 
+    L"Mutex", 
+    ID_MUTEX_MUTEX,
+    false
+  );
+  __hSemWnd = CreateRadioButton(
+    cp.semMutexPosition, 
+    L"Semaphore", 
+    ID_SEMAPHORE_MUTEX,
+    false
+  );
+  __hCrsWnd = CreateRadioButton(
+    cp.crsMutexPosition, 
+    L"CriticalSection", 
+    ID_CRITICAL_SECTION_MUTEX,
+    false
+  );
+  CheckRadioButton(
+    __hwnd,
+    ID_STD_MUTEX,
+    ID_CRITICAL_SECTION_MUTEX,
+    ID_STD_MUTEX
+  );
   ShowWindow(__hRunWnd, SW_SHOWNORMAL);
   ShowWindow(__hSuspendWnd, SW_SHOWNORMAL);
   ShowWindow(__hStopWnd, SW_SHOWNORMAL);
-  SetTimer(__hwnd, ID_REPRINT_TIMER, 60, nullptr);
+  ShowWindow(__hStdWnd, SW_SHOWNORMAL);
+  ShowWindow(__hMutWnd, SW_SHOWNORMAL);
+  ShowWindow(__hSemWnd, SW_SHOWNORMAL);
+  ShowWindow(__hCrsWnd, SW_SHOWNORMAL);
+  SetTimer(__hwnd, ID_REPRINT_TIMER, 1000 / 60, nullptr);
 }
 
 FiguresPrintingLogic::FiguresPrintingLogic(
@@ -68,16 +126,14 @@ FiguresPrintingLogic::FiguresPrintingLogic(
   : __hRunWnd(NULL) 
   , __hSuspendWnd(NULL)
   , __hStopWnd(NULL)
+  , __hStdWnd(NULL)
+  , __hMutWnd(NULL)
+  , __hSemWnd(NULL)
+  , __hCrsWnd(NULL)
   , __hwnd(NULL)
   , __hInst(NULL)
 {
-  std::swap(__hRunWnd, fpl.__hRunWnd);
-  std::swap(__hSuspendWnd, fpl.__hSuspendWnd);
-  std::swap(__hStopWnd, fpl.__hStopWnd);
-  std::swap(__hwnd, fpl.__hwnd);
-  std::swap(__hInst, fpl.__hInst);
-  std::swap(__board, fpl.__board);
-  std::swap(__printer, fpl.__printer);
+  *this = std::move(fpl);
 }
 
 FiguresPrintingLogic& 
@@ -88,6 +144,12 @@ FiguresPrintingLogic::operator =(
   std::swap(__hRunWnd, fpl.__hRunWnd);
   std::swap(__hSuspendWnd, fpl.__hSuspendWnd);
   std::swap(__hStopWnd, fpl.__hStopWnd);
+
+  std::swap(__hStdWnd, fpl.__hStdWnd);
+  std::swap(__hMutWnd, fpl.__hMutWnd);
+  std::swap(__hSemWnd, fpl.__hSemWnd);
+  std::swap(__hCrsWnd, fpl.__hCrsWnd);
+
   std::swap(__hwnd, fpl.__hwnd);
   std::swap(__hInst, fpl.__hInst);
   std::swap(__board, fpl.__board);
@@ -95,12 +157,14 @@ FiguresPrintingLogic::operator =(
    
   return *this;
 }
+
 FiguresPrintingLogic::~FiguresPrintingLogic()
 {
   if (__hwnd) {
     KillTimer(__hwnd, ID_REPRINT_TIMER);
   }
 }
+
 void FiguresPrintingLogic::Command(
   WPARAM wparam, LPARAM lparam
 )
@@ -115,10 +179,23 @@ void FiguresPrintingLogic::Command(
     case ID_STOP:
       OnStopClicked();
       break;
+    case ID_STD_MUTEX:
+      SetMutexType(MutexType::stdMutex);
+      break;
+    case ID_MUTEX_MUTEX:
+      SetMutexType(MutexType::winMutex);
+      break;
+    case ID_SEMAPHORE_MUTEX:
+      SetMutexType(MutexType::winSemaphore);
+      break;
+    case ID_CRITICAL_SECTION_MUTEX:
+      SetMutexType(MutexType::winCriticalSection);
+      break;
     default:
       break;
   }
 }
+
 void FiguresPrintingLogic::Timer(WPARAM wparam)
 {
   switch (IDs(wparam)) {
@@ -129,9 +206,11 @@ void FiguresPrintingLogic::Timer(WPARAM wparam)
       break;
   }
 }
+
 void SetWindowPosition(HWND hwnd, const Position &pos) {
   SetWindowPos(hwnd, 0, pos.x, pos.y, pos.w, pos.h, 0);
 }
+
 void FiguresPrintingLogic::Resize(
   int width, int height
 )
@@ -140,10 +219,39 @@ void FiguresPrintingLogic::Resize(
   if (__board) {
     __board->SetSize(p.printPositon.w, p.printPositon.h);
   }
+  SetWindowPosition(__hStdWnd, p.stdMutexPosition);
+  SetWindowPosition(__hMutWnd, p.mutMutexPosition);
+  SetWindowPosition(__hSemWnd, p.semMutexPosition);
+  SetWindowPosition(__hCrsWnd, p.crsMutexPosition);
   SetWindowPosition(__hRunWnd, p.runBtnPosition);
   SetWindowPosition(__hSuspendWnd, p.suspendBtnPosition);
   SetWindowPosition(__hStopWnd, p.stopBtnPosition);
 }
+
+void FiguresPrintingLogic::SetMutexType(MutexType type)
+{
+  if (__mutexType == type) {
+    return;
+  }
+
+  RECT rc;
+  GetClientRect(__hwnd, &rc);
+  auto cp = ComputePositions(
+    rc.right - rc.left, 
+    rc.bottom - rc.top
+  );
+
+  __board = GetBoard(
+    type, 
+    GetDC(__hwnd), 
+    cp.printPositon.w, 
+    cp.printPositon.h
+  );
+
+  __printer = std::make_unique<FiguresPrinter>(__board);
+  __mutexType = type;
+}
+
 void FiguresPrintingLogic::PrintPicture()
 {
   if (__board) {
@@ -163,7 +271,7 @@ void FiguresPrintingLogic::PrintPicture()
            cp.printPositon.y,
            cp.printPositon.w,
            cp.printPositon.h, 
-           dc, 
+           *dc, 
            0, 
            0, 
            SRCCOPY);
@@ -195,7 +303,7 @@ void FiguresPrintingLogic::Print()
            cp.printPositon.y,
            cp.printPositon.w,
            cp.printPositon.h, 
-           dc, 
+           *dc, 
            0, 
            0, 
            SRCCOPY);
@@ -211,31 +319,32 @@ void FiguresPrintingLogic::Print()
          SRCCOPY);
 
   EndPaint(__hwnd, &ps);
-
-  InvalidateRect(__hRunWnd, nullptr, TRUE);
-  InvalidateRect(__hSuspendWnd, nullptr, TRUE);
-  InvalidateRect(__hStopWnd,  nullptr, TRUE);
-  UpdateWindow(__hRunWnd);
-  UpdateWindow(__hSuspendWnd);
-  UpdateWindow(__hStopWnd);
 }
 
 Positions ComputePositions(int clientWidth, int clientHeight) 
 {
   //  _ - m         __ - m         _ - m
   // ________________________________
-  // | ____________   ____________  |  | - h
-  // | |           |  | RunBtn    | | | - btnHeight  
+  // | ____________                 |  | - h
+  // | |           |  |V| stdMut    | | - cbHeight
+  // | |           |                |  | - cbm  
+  // | |           |  | | mutMut    | | - cbHeight
+  // | |           |                |  | - cbm  
+  // | |           |  | | crsMut    | | - cbHeight
+  // | |           |                |  | - cbm  
+  // | | Area      |  | | semMut    | | - cbHeight
+  // | | For       |  ____________  |  | - H
+  // | | Printing  |  | RunBtn    | | | - btnHeight  
   // | |           |  \___________/ | |   
-  // | | Area      |  ____________  |  | - H
-  // | | For       |  | SuspendBtn| | | - btnHeight
-  // | | Printing  |  \___________/ | |
-  // | |           |  ____________  |  | - H
+  // | |           |  ____________  |  | - h
+  // | |           |  | SuspendBtn| | | - btnHeight
+  // | |           |  \___________/ | |
+  // | |           |  ____________  |  | - h
   // | |           |  | StopBtn   | | | - btnHeight
   // | \__________/   \___________/ | |
   // |______________________________|  | - h
 
-  const int minWidth = 300, minHeight = 300;
+  const int minWidth = 300, minHeight = 400;
 
   if (clientWidth < minWidth) {
     clientWidth = minWidth;
@@ -244,13 +353,20 @@ Positions ComputePositions(int clientWidth, int clientHeight)
     clientHeight = minHeight;
   }
 
-  const int m = 10;
-  const int h = 10;
-  const int btnHeight = 50;
-  const int H = (clientHeight - 3 * btnHeight - 2 * h) / 2;
+  constexpr int m = 10;
+  constexpr int h = 10;
+  constexpr int cbm = 10;
+  constexpr int btnHeight = 50;
+  constexpr int cbHeight = 20;
+  const int H = (clientHeight - 
+                 btnHeight * 3 - 
+                 cbHeight * 4 - 
+                 cbm * 3 -
+                 4 * h);
   const int afpHeight = clientHeight - 2 * h;
   const int afpWidth = (clientWidth - 3 * m) * 2 / 3;
   const int btnWidth = clientWidth - 3 * m - afpWidth;
+  const int cbWidth = btnWidth;
 
   Positions pos;
 
@@ -259,18 +375,38 @@ Positions ComputePositions(int clientWidth, int clientHeight)
   pos.printPositon.w = afpWidth;
   pos.printPositon.h = afpHeight;
 
+  pos.stdMutexPosition.x = m * 2 + afpWidth;
+  pos.stdMutexPosition.y = h;
+  pos.stdMutexPosition.w = cbWidth;
+  pos.stdMutexPosition.h = cbHeight;
+
+  pos.mutMutexPosition.x = m * 2 + afpWidth;
+  pos.mutMutexPosition.y = h + cbm * 1 + cbHeight * 1;
+  pos.mutMutexPosition.w = cbWidth;
+  pos.mutMutexPosition.h = cbHeight;
+
+  pos.crsMutexPosition.x = m * 2 + afpWidth;
+  pos.crsMutexPosition.y = h + cbm * 2 + cbHeight * 2;
+  pos.crsMutexPosition.w = cbWidth;
+  pos.crsMutexPosition.h = cbHeight;
+
+  pos.semMutexPosition.x = m * 2 + afpWidth;
+  pos.semMutexPosition.y = h + cbm * 3 + cbHeight * 3;
+  pos.semMutexPosition.w = cbWidth;
+  pos.semMutexPosition.h = cbHeight;
+
   pos.runBtnPosition.x = m * 2 + afpWidth;
-  pos.runBtnPosition.y = h;
+  pos.runBtnPosition.y = h + cbm * 3 + cbHeight * 4 + H;
   pos.runBtnPosition.w = btnWidth;
   pos.runBtnPosition.h = btnHeight;
 
   pos.suspendBtnPosition.x = m * 2 + afpWidth;
-  pos.suspendBtnPosition.y = h + H + btnHeight;
+  pos.suspendBtnPosition.y = h * 2 + cbm * 3 + cbHeight * 4 + H + btnHeight;
   pos.suspendBtnPosition.w = btnWidth;
   pos.suspendBtnPosition.h = btnHeight;
 
   pos.stopBtnPosition.x = m * 2 + afpWidth;
-  pos.stopBtnPosition.y = h + H * 2 + btnHeight * 2;
+  pos.stopBtnPosition.y = h * 3 + cbm * 3 + cbHeight * 4 + H + btnHeight * 2;
   pos.stopBtnPosition.w = btnWidth;
   pos.stopBtnPosition.h = btnHeight;
 
@@ -298,12 +434,16 @@ void FiguresPrintingLogic::OnStopClicked()
   }
 }
 
-HWND FiguresPrintingLogic::CreateButton(const Position& pos, LPCWSTR name, int id) const
+HWND FiguresPrintingLogic::CreateButton(
+  const Position& pos, 
+  LPCWSTR name, 
+  int id
+) const
 {
   return CreateWindow(
     L"button",
     name,
-    WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | WS_BORDER,
+    WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE | WS_TABSTOP,
     pos.x, pos.y, pos.w, pos.h,
     __hwnd,
     reinterpret_cast<HMENU>(id),
@@ -312,3 +452,56 @@ HWND FiguresPrintingLogic::CreateButton(const Position& pos, LPCWSTR name, int i
   );
 }
 
+HWND FiguresPrintingLogic::CreateRadioButton(
+  const Position &pos, 
+  LPCWSTR name, 
+  int id, 
+  bool isFirstInTheGroup
+) const
+{
+  int style = WS_CHILD | BS_AUTORADIOBUTTON;
+  if (isFirstInTheGroup) {
+    style = style | WS_GROUP | WS_TABSTOP;
+  }
+  return CreateWindow(
+    L"button",
+    name,
+    style,
+    pos.x, pos.y, pos.w, pos.h,
+    __hwnd,
+    (HMENU)(long long)(id),
+    __hInst,
+    nullptr
+  );
+}
+
+std::unique_ptr<IModifiableBoard> GetBoard(
+  MutexType type,
+  HDC hdc,
+  int width,
+  int height
+)
+{
+  switch (type) {
+    case MutexType::stdMutex:
+      return std::make_unique<ModifiableBoard<std::mutex>>(
+        hdc, width, height   
+      );
+    case MutexType::winMutex:
+      return std::make_unique<ModifiableBoard<WinMutexMutex>>(
+        hdc, width, height   
+      );
+    case MutexType::winSemaphore:
+      return std::make_unique<ModifiableBoard<WinSemaphoreMutex>>(
+        hdc, width, height   
+      );
+    case MutexType::winCriticalSection:
+      return std::make_unique<ModifiableBoard<WinCriticalSectionMutex>>(
+        hdc, width, height   
+      );
+    default:
+      return std::make_unique<ModifiableBoard<std::mutex>>(
+        hdc, width, height   
+      );
+  }
+}

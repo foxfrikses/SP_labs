@@ -16,42 +16,94 @@
     <Filter Include="Source Files\ModifiableBoard">
       <UniqueIdentifier>{e8491b1a-a359-4c9d-8176-697b197369f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\WindowClass">
+      <UniqueIdentifier>{a9370347-d974-4e18-bde4-50f0dcce49ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WindowClassLogic">
+      <UniqueIdentifier>{a23e05b9-cd8f-4e48-99f3-126e7145553d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ThreadFunction">
+      <UniqueIdentifier>{fb020783-eee1-4ddc-b33d-fc1dfbf2f167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mutexes">
+      <UniqueIdentifier>{9060ed1a-f40c-4628-a5b0-e91a5bb050aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Window">
+      <UniqueIdentifier>{e4fee4bb-a6dd-4b55-93d7-36e16fc57361}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="11th_12th_lab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FiguresPrintingWindowClass.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\WindowClass</Filter>
     </ClCompile>
     <ClCompile Include="FiguresPrintingLogic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModifiableBoard.cpp">
-      <Filter>Source Files\ModifiableBoard</Filter>
-    </ClCompile>
-    <ClCompile Include="FiguresPrinter.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\WindowClassLogic</Filter>
     </ClCompile>
     <ClCompile Include="FiguresPrinterThreadFunction.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ThreadFunction</Filter>
+    </ClCompile>
+    <ClCompile Include="FiguresPrinter.cpp">
+      <Filter>Source Files\WindowClassLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="WinCriticalSectionMutex.cpp">
+      <Filter>Source Files\Mutexes</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMutexMutex.cpp">
+      <Filter>Source Files\Mutexes</Filter>
+    </ClCompile>
+    <ClCompile Include="WinSemaphoreMutex.cpp">
+      <Filter>Source Files\Mutexes</Filter>
+    </ClCompile>
+    <ClCompile Include="FiguresPrintingWindow.cpp">
+      <Filter>Source Files\Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FiguresPrintingWindowClass.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FiguresPrintingLogic.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="ModifiableBoard.h">
       <Filter>Source Files\ModifiableBoard</Filter>
     </ClInclude>
-    <ClInclude Include="FiguresPrinter.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="FiguresPrintingWindowClass.h">
+      <Filter>Source Files\WindowClass</Filter>
+    </ClInclude>
+    <ClInclude Include="FiguresPrintingLogic.h">
+      <Filter>Source Files\WindowClassLogic</Filter>
     </ClInclude>
     <ClInclude Include="FiguresPrinterThreadFunction.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ThreadFunction</Filter>
     </ClInclude>
+    <ClInclude Include="FiguresPrinter.h">
+      <Filter>Source Files\WindowClassLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="WinMutexMutex.h">
+      <Filter>Source Files\Mutexes</Filter>
+    </ClInclude>
+    <ClInclude Include="WinSemaphoreMutex.h">
+      <Filter>Source Files\Mutexes</Filter>
+    </ClInclude>
+    <ClInclude Include="WinCriticalSectionMutex.h">
+      <Filter>Source Files\Mutexes</Filter>
+    </ClInclude>
+    <ClInclude Include="IModifiableBoard.h">
+      <Filter>Source Files\ModifiableBoard</Filter>
+    </ClInclude>
+    <ClInclude Include="FiguresPrintingWindow.h">
+      <Filter>Source Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="11th_12th_lab.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\demented_smile.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

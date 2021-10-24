@@ -146,20 +146,35 @@
     <ClCompile Include="FiguresPrinter.cpp" />
     <ClCompile Include="FiguresPrinterThreadFunction.cpp" />
     <ClCompile Include="FiguresPrintingLogic.cpp" />
+    <ClCompile Include="FiguresPrintingWindow.cpp" />
     <ClCompile Include="FiguresPrintingWindowClass.cpp" />
-    <ClCompile Include="ModifiableBoard.cpp" />
+    <ClCompile Include="WinCriticalSectionMutex.cpp" />
+    <ClCompile Include="WinMutexMutex.cpp" />
+    <ClCompile Include="WinSemaphoreMutex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FiguresPrinter.h" />
     <ClInclude Include="FiguresPrinterThreadFunction.h" />
     <ClInclude Include="FiguresPrintingLogic.h" />
+    <ClInclude Include="FiguresPrintingWindow.h" />
     <ClInclude Include="FiguresPrintingWindowClass.h" />
+    <ClInclude Include="IModifiableBoard.h" />
     <ClInclude Include="ModifiableBoard.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="WinCriticalSectionMutex.h" />
+    <ClInclude Include="WinMutexMutex.h" />
+    <ClInclude Include="WinSemaphoreMutex.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.vcxproj">
       <Project>{d6c85284-1dee-4f33-b65e-502f9f11255c}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="11th_12th_lab.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\demented_smile.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

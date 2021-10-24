@@ -71,13 +71,11 @@ PrintBoard& PrintBoard::SetSize(UINT width, UINT height) {
   }
   else {
     __hBmp = hNewBmp;
-    SelectObject(__hdc, __hBmp);
+    DeleteObject(SelectObject(__hdc, __hBmp));
   }
 
   __width = width;
   __height = height;
-
-  SelectObject(__hdc, __hBmp);
 }
 
 

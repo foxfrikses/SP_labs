@@ -1,15 +1,15 @@
 #pragma once
 
-#include "ModifiableBoard.h"
+#include "IModifiableBoard.h"
 #include <memory>
 #include <array>
 
 #include "FiguresPrinterThreadFunction.h"
 
-class FiguresPrinter
+class FiguresPrinter final
 {
 public:
-  FiguresPrinter(std::shared_ptr<ModifiableBoard>);
+  explicit FiguresPrinter(std::shared_ptr<IModifiableBoard>);
   ~FiguresPrinter();
 
   void Run();
@@ -24,11 +24,11 @@ private:
     stopped,
     running,
     suspended
-  } __state;
+  } __state = State::stopped;
  
-  std::shared_ptr<ModifiableBoard> __board;
+  std::shared_ptr<IModifiableBoard> __board = nullptr;
 
-  figures_printer::ThreadData* __threadDataArray;
-  std::array<DWORD, THREAD_COUNT>  __threadIdArray;
-  std::array<HANDLE, THREAD_COUNT> __threadArray;
+  figures_printer::ThreadData* __threadDataArray = nullptr;
+  std::array<DWORD, THREAD_COUNT>  __threadIdArray = {0};
+  std::array<HANDLE, THREAD_COUNT> __threadArray = {0};
 };

@@ -7,9 +7,10 @@
 
 #include "IWindow.h"
 #include "FiguresPrintingWindowClass.h"
+#include "FiguresPrintingWindow.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-  auto w = IWindow(
+  auto w = FiguresPrintingWindow(
     std::make_unique<FiguresPrintingWindowClass>(hInstance), 
     nCmdShow
   );
