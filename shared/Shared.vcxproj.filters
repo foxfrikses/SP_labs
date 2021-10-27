@@ -84,6 +84,9 @@
     <ClInclude Include="PrintBoard.h">
       <Filter>Header Files\Boards</Filter>
     </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IWindow.cpp">
@@ -124,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="DCRectanglePrinter.cpp">
       <Filter>Source Files\DCTools\DCModifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="common.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
