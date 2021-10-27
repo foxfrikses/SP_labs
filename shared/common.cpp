@@ -12,7 +12,7 @@ Handle::~Handle()
     CloseHandle(__handle);
 }
 
-HANDLE Handle::H() const
+Handle::operator HANDLE() const
 {
   return __handle;
 }
@@ -29,3 +29,29 @@ Handle& Handle::operator=(Handle&& newHandle) noexcept
   return *this;
 }
 
+Menu::Menu(HMENU menu)
+  : __menu(menu)
+{}
+
+Menu::~Menu()
+{
+  if (__menu)
+    DestroyMenu(__menu);
+}
+
+Menu::operator HMENU() const
+{
+  return __menu;
+}
+ 
+Menu::Menu(Menu&& newMenu) noexcept
+  : __menu(NULL)
+{
+  *this = std::move(newMenu);
+}
+
+Menu& Menu::operator=(Menu&& newMenu) noexcept
+{
+  std::swap(__menu, newMenu.__menu);
+  return *this;
+}

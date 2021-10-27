@@ -7,10 +7,10 @@ class Handle final
   HANDLE __handle;
 
 public:
-  Handle(HANDLE handle);
+  explicit Handle(HANDLE handle);
   ~Handle();
 
-  HANDLE H() const;
+  operator HANDLE() const;
  
   Handle(Handle&&) noexcept;
   Handle& operator=(Handle&&) noexcept;
@@ -18,3 +18,21 @@ public:
   Handle(const Handle&) = delete;
   Handle& operator=(const Handle&) = delete;
 };
+
+class Menu final
+{
+  HMENU __menu;
+
+public:
+  explicit Menu(HMENU menu);
+  ~Menu();
+
+  operator HMENU() const;
+ 
+  Menu(Menu&&) noexcept;
+  Menu& operator=(Menu&&) noexcept;
+
+  Menu(const Menu&) = delete;
+  Menu& operator=(const Menu&) = delete;
+};
+

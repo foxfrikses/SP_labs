@@ -43,6 +43,7 @@ PriorityManagerLogic::PriorityManagerLogic(
 )
   : __hwnd(hwnd)
   , __hInst(hInst)
+  , __popupMenu(NULL)
 {
   RECT rc;
   GetClientRect(__hwnd, &rc);
@@ -92,37 +93,37 @@ void PriorityManagerLogic::Command(WPARAM wparam, LPARAM lparam)
 
     case ID_IDLE_MENU_ITEM:
       if (auto p = GetContexMenuProcess(); p.has_value()) {
-        SetPriorityClass(p->H(), IDLE_PRIORITY_CLASS);
+        SetPriorityClass(p.value(), IDLE_PRIORITY_CLASS);
       }
       break;
 
     case ID_BELOW_NORMAL_MENU_ITEM:
       if (auto p = GetContexMenuProcess(); p.has_value()) {
-        SetPriorityClass(p->H(), BELOW_NORMAL_PRIORITY_CLASS);
+        SetPriorityClass(p.value(), BELOW_NORMAL_PRIORITY_CLASS);
       }
       break;
 
     case ID_NORMAL_MENU_ITEM:
       if (auto p = GetContexMenuProcess(); p.has_value()) {
-        SetPriorityClass(p->H(), NORMAL_PRIORITY_CLASS);
+        SetPriorityClass(p.value(), NORMAL_PRIORITY_CLASS);
       }
       break;
 
     case ID_ABOVE_NORMAL_MENU_ITEM:
       if (auto p = GetContexMenuProcess(); p.has_value()) {
-        SetPriorityClass(p->H(), ABOVE_NORMAL_PRIORITY_CLASS);
+        SetPriorityClass(p.value(), ABOVE_NORMAL_PRIORITY_CLASS);
       }
       break;
 
     case ID_HIGH_MENU_ITEM:
       if (auto p = GetContexMenuProcess(); p.has_value()) {
-        SetPriorityClass(p->H(), HIGH_PRIORITY_CLASS);
+        SetPriorityClass(p.value(), HIGH_PRIORITY_CLASS);
       }
       break;
 
     case ID_REALTIME_MENU_ITEM:
       if (auto p = GetContexMenuProcess(); p.has_value()) {
-        SetPriorityClass(p->H(), REALTIME_PRIORITY_CLASS);
+        SetPriorityClass(p.value(), REALTIME_PRIORITY_CLASS);
       }
       break;
 
@@ -133,23 +134,19 @@ void PriorityManagerLogic::Command(WPARAM wparam, LPARAM lparam)
 
 void PriorityManagerLogic::ContextMenu(HWND hwnd, int x, int y)
 {
-  std::vector<HMENU> menus;
-
-  auto m = CreatePopupMenu();
-  menus.push_back(m);
-  AppendMenu(m, MF_STRING, ID_UPDATE_PROCESSES_MENU_ITEM, L"Refresh processes");
+  __popupMenu = Menu(CreatePopupMenu());
+  AppendMenu(__popupMenu, MF_STRING, ID_UPDATE_PROCESSES_MENU_ITEM, L"Refresh processes");
 
   if (hwnd == __hProcessesList && LoadContextMenuProcess(x, y)) {
     if (auto process = GetContexMenuProcess();
-        process.has_value() && process.value().H()) {
+        process.has_value() && process.value()) {
 
-      AppendMenu(m, MF_SEPARATOR, 0, nullptr);
+      AppendMenu(__popupMenu, MF_SEPARATOR, 0, nullptr);
       auto m2 = CreatePopupMenu();
-      menus.push_back(m2);
       auto name = GetContexMenuProcessName();
-      AppendMenu(m, MF_POPUP, (DWORD)m2, name.c_str());
+      AppendMenu(__popupMenu, MF_POPUP, (DWORD)m2, name.c_str());
         
-      int p = GetPriorityClass(process.value().H());
+      int p = GetPriorityClass(process.value());
 
       auto idleMf = p == IDLE_PRIORITY_CLASS ? 
         MF_CHECKED : MF_STRING;
@@ -173,10 +170,9 @@ void PriorityManagerLogic::ContextMenu(HWND hwnd, int x, int y)
     }
   }
 
-  TrackPopupMenu(m, TPM_TOPALIGN | TPM_LEFTALIGN, x, y, 0, __hwnd, NULL);
-  for (auto& m : menus) {
-    DestroyMenu(m);
-  }
+  TrackPopupMenu(__popupMenu, 
+                 TPM_TOPALIGN | TPM_LEFTALIGN, 
+                 x, y, 0, __hwnd, NULL);
 }
 
 void SetWindowPosition(HWND hwnd, const Position &pos) {
@@ -279,10 +275,10 @@ NameIdList LoadProcesses()
   );
 
   NameIdList niList;
-  if (Process32First(toolHelp.H(), &p)) {
+  if (Process32First(toolHelp, &p)) {
     do {
       niList.emplace_back(p.szExeFile, p.th32ProcessID);
-    } while (Process32Next(toolHelp.H(), &p));
+    } while (Process32Next(toolHelp, &p));
   }
   return niList;
 }
@@ -309,10 +305,10 @@ NameIdList LoadModules(DWORD processId, bool is32For64System)
   auto toolHelp = Handle(res);
 
   NameIdList niList;
-  if (Module32First(toolHelp.H(), &m)) {
+  if (Module32First(toolHelp, &m)) {
     do {
       niList.emplace_back(m.szModule, m.th32ModuleID);
-    } while (Module32Next(toolHelp.H(), &m));
+    } while (Module32Next(toolHelp, &m));
   }
   return niList;
 }
@@ -334,7 +330,7 @@ void UpdateList(HWND list, const NameIdList& data)
   SendMessage(list, LB_INITSTORAGE, data.size(), stringLength + 1);
  
   for (auto& [name, id] : data) {
-    int i = SendMessage(list, LB_ADDSTRING, -1, (LPARAM)name.c_str());
+    int i = SendMessage(list, LB_INSERTSTRING, -1, (LPARAM)name.c_str());
     SendMessage(list, LB_SETITEMDATA , i, id);
   }
   SendMessage(list, WM_SETREDRAW, TRUE, 0);
@@ -388,10 +384,10 @@ std::optional<Handle> PriorityManagerLogic::GetContexMenuProcess() const
                           __contextMenuProcessIndex.value(), 
                           0);
 
-    return OpenProcess(PROCESS_SET_INFORMATION | 
-                       PROCESS_QUERY_INFORMATION, 
-                       FALSE, 
-                       id);
+    return Handle(OpenProcess(PROCESS_SET_INFORMATION | 
+                              PROCESS_QUERY_INFORMATION, 
+                              FALSE, 
+                              id));
   }
   else {
     return std::nullopt;

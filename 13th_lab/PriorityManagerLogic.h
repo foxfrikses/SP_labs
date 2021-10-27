@@ -28,6 +28,7 @@ public:
 private:
   HWND __hProcessesList;
   HWND __hModuleList;
+  Menu __popupMenu; // need to clean menu
 
   void UpdateProcessList();
   void UpdateModuleList(DWORD processId);
