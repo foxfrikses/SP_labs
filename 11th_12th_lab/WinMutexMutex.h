@@ -2,20 +2,15 @@
 
 #include <windows.h>
 #include <string>
+#include "common.h"
 
 class WinMutexMutex final
 {
-  HANDLE __hMutex;
+  Handle __hMutex;
 
 public:
-  explicit WinMutexMutex();
-  ~WinMutexMutex();
+  WinMutexMutex();
 
   void lock();
   void unlock();
-
-  WinMutexMutex(WinMutexMutex&&) = delete;
-  WinMutexMutex(const WinMutexMutex&) = delete;
-  WinMutexMutex& operator=(WinMutexMutex&&) = delete;
-  WinMutexMutex& operator=(const WinMutexMutex&) = delete;
 };

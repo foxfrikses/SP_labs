@@ -7,8 +7,8 @@
 #include <numeric>
 
 struct Positions {
-  Position procesesPosition; 
-  Position modulesPosition; 
+  Position keyTreePos; 
+  Position valuesListPos; 
 };
 
 enum IDs
@@ -50,14 +50,14 @@ PriorityManagerLogic::PriorityManagerLogic(
   auto p = ComputePositions(rc.right - rc.left,
                             rc.bottom - rc.top);
   __hProcessesList = CreateListBox(
-    p.procesesPosition,
+    p.keyTreePos,
     L"Processes",
     ID_PROCESSES,
     __hwnd,
     __hInst
   );
   __hModuleList = CreateListBox(
-    p.modulesPosition,
+    p.valuesListPos,
     L"Modules",
     ID_MODULES,
     __hwnd,
@@ -182,8 +182,8 @@ void SetWindowPosition(HWND hwnd, const Position &pos) {
 void PriorityManagerLogic::Resize(int width, int height)
 {
   auto p = ComputePositions(width, height);
-  SetWindowPosition(__hProcessesList, p.procesesPosition);
-  SetWindowPosition(__hModuleList, p.modulesPosition);
+  SetWindowPosition(__hProcessesList, p.keyTreePos);
+  SetWindowPosition(__hModuleList, p.valuesListPos);
   Print();
 }
 
@@ -229,15 +229,15 @@ Positions ComputePositions(int clientWidth, int clientHeight)
 
   Positions p;
 
-  p.procesesPosition.x = m;
-  p.procesesPosition.y = m;
-  p.procesesPosition.w = lbWidth;
-  p.procesesPosition.h = lbHeight;
+  p.keyTreePos.x = m;
+  p.keyTreePos.y = m;
+  p.keyTreePos.w = lbWidth;
+  p.keyTreePos.h = lbHeight;
 
-  p.modulesPosition.x = m * 2 + lbWidth;
-  p.modulesPosition.y = m;
-  p.modulesPosition.w = lbWidth;
-  p.modulesPosition.h = lbHeight;
+  p.valuesListPos.x = m * 2 + lbWidth;
+  p.valuesListPos.y = m;
+  p.valuesListPos.w = lbWidth;
+  p.valuesListPos.h = lbHeight;
 
   return p;
 }

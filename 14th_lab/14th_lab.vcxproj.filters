@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\WindowClassLogic">
+      <UniqueIdentifier>{b747e296-5bbe-4d86-8200-614bdeea7746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\WindowClass">
+      <UniqueIdentifier>{736f2f88-0ecb-4db4-b8b7-d4cf2052b365}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Window">
+      <UniqueIdentifier>{4e3a9eeb-88f9-41e5-8e1a-863a29235382}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\KeyValues">
+      <UniqueIdentifier>{3e3826f5-a351-491b-9c24-36700972581b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\KeyTree">
+      <UniqueIdentifier>{11da1637-5932-405f-b145-ef32d5a2b958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Keys">
+      <UniqueIdentifier>{cfe6aea5-77da-44c3-a537-8a2323314705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Values">
+      <UniqueIdentifier>{76c9f99d-ede0-44e7-870a-8b5bff791f87}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="14th_lab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RegistryEditorWindow.cpp">
+      <Filter>Source Files\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="RegistryEditorWindowClass.cpp">
+      <Filter>Source Files\WindowClass</Filter>
+    </ClCompile>
+    <ClCompile Include="RegistryEditorLogic.cpp">
+      <Filter>Source Files\WindowClassLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyTree.cpp">
+      <Filter>Source Files\KeyTree</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyTreeWidget.cpp">
+      <Filter>Source Files\KeyTree</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyValuesList.cpp">
+      <Filter>Source Files\KeyValues</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyValuesListWidget.cpp">
+      <Filter>Source Files\KeyValues</Filter>
+    </ClCompile>
+    <ClCompile Include="RegKey.cpp">
+      <Filter>Source Files\Keys</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RegistryEditorWindow.h">
+      <Filter>Source Files\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="RegistryEditorWindowClass.h">
+      <Filter>Source Files\WindowClass</Filter>
+    </ClInclude>
+    <ClInclude Include="RegistryEditorLogic.h">
+      <Filter>Source Files\WindowClassLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyTree.h">
+      <Filter>Source Files\KeyTree</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyTreeWidget.h">
+      <Filter>Source Files\KeyTree</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyValuesList.h">
+      <Filter>Source Files\KeyValues</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyValuesListWidget.h">
+      <Filter>Source Files\KeyValues</Filter>
+    </ClInclude>
+    <ClInclude Include="RegKey.h">
+      <Filter>Source Files\Keys</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="14th_lab.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\demented_smile.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

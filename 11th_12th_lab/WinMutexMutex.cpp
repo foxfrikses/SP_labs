@@ -12,11 +12,6 @@ WinMutexMutex::WinMutexMutex()
   }
 }
 
-WinMutexMutex::~WinMutexMutex()
-{
-  CloseHandle(__hMutex);
-}
-
 void WinMutexMutex::lock()
 {
   WaitForSingleObject(__hMutex, INFINITE);

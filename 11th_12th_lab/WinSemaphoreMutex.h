@@ -2,20 +2,15 @@
 
 #include <windows.h>
 #include <string>
+#include "common.h"
 
 class WinSemaphoreMutex final
 {
-  HANDLE __hSemaphore;
+  Handle __hSemaphore;
 
 public:
-  explicit WinSemaphoreMutex();
-  ~WinSemaphoreMutex();
+  WinSemaphoreMutex();
 
   void lock();
   void unlock();
-
-  WinSemaphoreMutex(WinSemaphoreMutex&&) = delete;
-  WinSemaphoreMutex(const WinSemaphoreMutex&) = delete;
-  WinSemaphoreMutex& operator=(WinSemaphoreMutex&&) = delete;
-  WinSemaphoreMutex& operator=(const WinSemaphoreMutex&) = delete;
 };

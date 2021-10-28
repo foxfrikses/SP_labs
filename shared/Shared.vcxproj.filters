@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Boards">
       <UniqueIdentifier>{ea6174cf-e005-48f8-ab83-ab796e4f9199}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Synchronization">
+      <UniqueIdentifier>{03f5cebb-6687-4457-bacb-1690679ee307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Synchronization">
+      <UniqueIdentifier>{c713bc90-cb4d-4720-8db5-9678d9031483}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IWindow.h">
@@ -87,6 +93,9 @@
     <ClInclude Include="common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WinEvent.h">
+      <Filter>Header Files\Synchronization</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IWindow.cpp">
@@ -130,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="common.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WinEvent.cpp">
+      <Filter>Source Files\Synchronization</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

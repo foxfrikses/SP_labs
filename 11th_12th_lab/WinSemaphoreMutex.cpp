@@ -12,11 +12,6 @@ WinSemaphoreMutex::WinSemaphoreMutex()
   }
 }
 
-WinSemaphoreMutex::~WinSemaphoreMutex()
-{
-  CloseHandle(__hSemaphore);
-}
-
 void WinSemaphoreMutex::lock()
 {
   WaitForSingleObject(__hSemaphore, INFINITE);
